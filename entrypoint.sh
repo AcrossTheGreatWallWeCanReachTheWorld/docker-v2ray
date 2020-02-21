@@ -1,7 +1,6 @@
 #!/bin/sh
 # enviroments: DOMAIN, UUID, V2RAY_PATH, REVERSE_PROXY_URL
 V2RAY_PORT=8080
-set -e
 
 mkdir -p /data/log
 mkdir -p /data/caddy
@@ -90,7 +89,7 @@ EOF
 kill -SIGKILL "$(cat CADDY_PID)")&
 echo "$!" > V2RAY_PID
 
-(caddy -conf ./Caddyfile -disabled-metrics
+(caddy -conf ./Caddyfile
 kill -SIGKILL "$(cat V2RAY_PID)")&
 echo "$!" > CADDY_PID
 
