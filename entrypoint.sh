@@ -3,22 +3,10 @@
 V2RAY_PORT=8080
 set -e
 
-cat << 'EOF' > /etc/supervisord.conf
-[supervisord]
-nodaemon=true
-
-[program:v2ray]
-command=v2ray -config=v2ray.json
-autorestart=true
-priority=200
-
-[program:caddy]
-command=caddy -conf ./Caddyfile
-autorestart=true
-EOF
-
 mkdir -p /data/log
 
+mkdir -p /data/caddy
+ln -s /data/caddy ~/.caddy
 cat << EOF > Caddyfile
 $DOMAIN {
     gzip
