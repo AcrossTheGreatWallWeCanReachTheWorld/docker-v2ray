@@ -31,9 +31,9 @@ server {
     location / {
     proxy_redirect off;
     proxy_pass $REVERSE_PROXY_URL;
-    proxy_set_header Upgrade \$http_upgrade;
-    proxy_set_header Connection "upgrade";
+    proxy_set_header X-Forwarded-Proto \$scheme;
     proxy_set_header Host \$http_host;
+    proxy_set_header X-Real-IP \$remote_addr;
     }
 }
 EOF
