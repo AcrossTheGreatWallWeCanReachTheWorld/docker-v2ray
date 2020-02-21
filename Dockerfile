@@ -22,8 +22,8 @@ RUN apk --no-cache add tzdata ca-certificates nginx unzip acme.sh supervisor \
 
 RUN wget -O - $CADDY_DOWNLOAD_URL | tar -xzvC /usr/local/bin caddy
 
+ADD entrypoint.sh /
 VOLUME /root/.caddy
 WORKDIR /root
-
 EXPOSE 443 80
 ENTRYPOINT ["/bin/sh", "/entrypoint.sh"]
