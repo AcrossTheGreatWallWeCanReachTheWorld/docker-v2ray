@@ -8,7 +8,7 @@ cat << 'EOF' > /etc/supervisord.conf
 nodaemon=true
 
 [program:v2ray]
-command=v2ray -config=/etc/v2ray/config.json
+command=v2ray -config=v2ray.json
 autorestart=true
 priority=200
 
@@ -17,10 +17,12 @@ command=caddy -conf ./Caddyfile
 autorestart=true
 EOF
 
+mkdir -p /data/log
+
 cat << EOF > Caddyfile
 $DOMAIN {
     gzip
-    log stdout
+    log /data/log/caddy.log
     timeouts none
     proxy / $REVERSE_PROXY_URL
     proxy /$V2RAY_PATH 127.0.0.1:$V2RAY_PORT {
@@ -30,12 +32,12 @@ $DOMAIN {
 }
 EOF
 
-mkdir -p /etc/v2ray /var/log/v2ray
-cat << EOF > /etc/v2ray/config.json
+mkdir -p /data/log/v2ray
+cat << EOF > v2ray.json
 {
   "log" : {
-    "access": "/var/log/v2ray/access.log",
-    "error": "/var/log/v2ray/error.log",
+    "access": "/data/log/v2ray/access.log",
+    "error": "/data/log/v2ray/error.log",
     "loglevel": "warning"
   },
   "inbound": {
@@ -99,4 +101,8 @@ cat << EOF > /etc/v2ray/config.json
 }
 EOF
 
-exec /usr/bin/supervisord -c /etc/supervisord.conf
+v2ray -config=v2ray.json &
+V2RAY_PID="$!"
+
+caddy -conf ./Caddyfile
+kill -SIGKILL "$V2RAY_PID"
