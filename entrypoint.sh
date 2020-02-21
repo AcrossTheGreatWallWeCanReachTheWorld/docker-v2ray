@@ -8,9 +8,7 @@ mkdir -p /data/caddy
 ln -s /data/caddy ~/.caddy
 cat << EOF > Caddyfile
 $DOMAIN {
-    gzip
     log /data/log/caddy.log
-    timeouts none
     proxy / $REVERSE_PROXY_URL
     proxy /$V2RAY_PATH 127.0.0.1:$V2RAY_PORT {
         websocket
