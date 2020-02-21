@@ -5,11 +5,6 @@ ARG V2RAY_VERSION=v4.22.1
 ARG V2RAY_DOWNLOAD_URL=https://github.com/v2ray/v2ray-core/releases/download/${V2RAY_VERSION}/v2ray-linux-64.zip
 ARG CADDY_DOWNLOAD_URL=https://github.com/caddyserver/caddy/releases/download/v1.0.4/caddy_v1.0.4_linux_amd64.tar.gz
 
-ENV DOMAIN=localhost
-ENV UUID=2074ccef-0492-4150-b140-70088e75ff96
-ENV V2RAY_PATH=/request
-ENV REVERSE_PROXY_URL=https://www.v2ray.com
-
 RUN apk --no-cache add tzdata ca-certificates nginx unzip acme.sh supervisor \
     && mkdir -p /tmp/v2ray \
     && wget -O /tmp/v2ray/v2ray.zip ${V2RAY_DOWNLOAD_URL} \
@@ -21,6 +16,11 @@ RUN apk --no-cache add tzdata ca-certificates nginx unzip acme.sh supervisor \
     && rm -rf /tmp/*
 
 RUN wget -O - $CADDY_DOWNLOAD_URL | tar -xzvC /usr/local/bin caddy
+
+ENV DOMAIN=0.0.0.0
+ENV UUID=2074ccef-0492-4150-b140-70088e75ff96
+ENV V2RAY_PATH=/request
+ENV REVERSE_PROXY_URL=https://www.v2ray.com
 
 ADD entrypoint.sh /
 VOLUME /root/.caddy /var/log
