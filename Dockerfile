@@ -17,7 +17,7 @@ RUN apk --no-cache add tzdata ca-certificates unzip \
 
 RUN wget -O - $CADDY_DOWNLOAD_URL | tar -xzvC /usr/local/bin caddy
 
-ENV DOMAIN=0.0.0.0
+ENV DOMAIN="0.0.0.0:80"
 ENV UUID=2074ccef-0492-4150-b140-70088e75ff96
 ENV V2RAY_PATH=/request
 ENV REVERSE_PROXY_URL=https://www.v2ray.com
