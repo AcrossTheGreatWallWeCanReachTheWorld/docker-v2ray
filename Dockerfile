@@ -19,4 +19,5 @@ RUN apk --no-cache add tzdata ca-certificates nginx unzip acme.sh supervisor \
     && echo ${TZ} > /etc/timezone \
     && rm -rf /tmp/*
 
-CMD ["/bin/sh", "/entrypoint.sh"]
+EXPOSE 443 80
+ENTRYPOINT ["/bin/sh", "/entrypoint.sh"]
