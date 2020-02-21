@@ -21,7 +21,7 @@ server {
 
     location /$V2RAY_PATH {
     proxy_redirect off;
-    proxy_pass http://127.0.0.1:8080;
+    proxy_pass http://127.0.0.1:$V2RAY_PORT;
     proxy_http_version 1.1;
     proxy_set_header Upgrade \$http_upgrade;
     proxy_set_header Connection "upgrade";
