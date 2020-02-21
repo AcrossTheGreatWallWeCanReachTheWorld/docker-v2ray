@@ -4,7 +4,6 @@ V2RAY_PORT=8080
 set -e
 
 mkdir -p /data/log
-
 mkdir -p /data/caddy
 ln -s /data/caddy ~/.caddy
 cat << EOF > Caddyfile
