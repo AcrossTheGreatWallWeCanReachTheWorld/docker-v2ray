@@ -96,4 +96,4 @@ echo "$!" > V2RAY_PID
 kill -SIGKILL "$(cat V2RAY_PID)")&
 echo "$!" > CADDY_PID
 
-wait "$V2RAY_PID" "$CADDY_PID"
+wait "$(cat V2RAY_PID)" "$(cat CADDY_PID)"
