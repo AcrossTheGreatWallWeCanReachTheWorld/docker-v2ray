@@ -30,7 +30,7 @@ $DOMAIN {
 }
 EOF
 
-mkdir -p /etc/v2ray
+mkdir -p /etc/v2ray /var/log/v2ray
 cat << EOF > /etc/v2ray/config.json
 {
   "log" : {
