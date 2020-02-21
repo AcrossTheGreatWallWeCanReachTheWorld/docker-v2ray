@@ -13,7 +13,8 @@ autorestart=true
 priority=200
 EOF
 
-mkdir -p /etc/nginx/conf.d
+mkdir -p /run/nginx
+
 cat << EOF > /etc/nginx/conf.d/default.conf
 server {
     listen 80 default_server;
