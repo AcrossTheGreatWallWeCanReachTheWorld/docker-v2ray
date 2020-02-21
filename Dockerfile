@@ -13,7 +13,8 @@ RUN apk --no-cache add tzdata ca-certificates unzip \
     && chmod +x /usr/local/bin/v2ray /usr/local/bin/v2ctl \
     && ln -sf /usr/share/zoneinfo/${TZ} /etc/localtime \
     && echo ${TZ} > /etc/timezone \
-    && rm -rf /tmp/*
+    && rm -rf /tmp/* \
+    && apk del unzip
 
 RUN wget -O - $CADDY_DOWNLOAD_URL | tar -xzvC /usr/local/bin caddy
 
