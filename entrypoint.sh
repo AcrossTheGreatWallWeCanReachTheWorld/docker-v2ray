@@ -19,7 +19,7 @@ server {
     listen 80 default_server;
     charset utf-8;
 
-    location /ray {
+    location /$REVERSE_PROXY_URL {
     proxy_redirect off;
     proxy_pass http://127.0.0.1:8080;
     proxy_http_version 1.1;
