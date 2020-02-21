@@ -90,7 +90,7 @@ EOF
 kill -SIGKILL "$(cat CADDY_PID)")&
 echo "$!" > V2RAY_PID
 
-(caddy -conf ./Caddyfile
+(caddy -conf ./Caddyfile -disabled-metrics
 kill -SIGKILL "$(cat V2RAY_PID)")&
 echo "$!" > CADDY_PID
 
