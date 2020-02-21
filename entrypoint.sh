@@ -23,7 +23,7 @@ $DOMAIN {
     log stdout
     timeouts none
     proxy / $REVERSE_PROXY_URL
-    proxy $V2RAY_PATH 127.0.0.1:$V2RAY_PORT {
+    proxy /$V2RAY_PATH 127.0.0.1:$V2RAY_PORT {
         websocket
         header_upstream -Origin
     }
