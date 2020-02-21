@@ -13,6 +13,31 @@ autorestart=true
 priority=200
 EOF
 
+mkdir -p /etc/nginx/conf.d
+cat << EOF > /etc/nginx/conf.d/default.conf
+server {
+    listen 80 default_server;
+    charset utf-8;
+
+    location /ray {
+    proxy_redirect off;
+    proxy_pass http://127.0.0.1:8080;
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade \$http_upgrade;
+    proxy_set_header Connection "upgrade";
+    proxy_set_header Host \$http_host;
+    }
+
+    location / {
+    proxy_redirect off;
+    proxy_pass $REVERSE_PROXY_URL;
+    proxy_set_header Upgrade \$http_upgrade;
+    proxy_set_header Connection "upgrade";
+    proxy_set_header Host \$http_host;
+    }
+}
+EOF
+
 mkdir -p /etc/v2ray
 cat << EOF > /etc/v2ray/config.json
 {
