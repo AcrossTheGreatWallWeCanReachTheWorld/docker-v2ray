@@ -3,6 +3,7 @@ FROM alpine:3.11
 ARG TZ="UTC"
 ARG V2RAY_VERSION=v4.22.1
 ARG V2RAY_DOWNLOAD_URL=https://github.com/v2ray/v2ray-core/releases/download/${V2RAY_VERSION}/v2ray-linux-64.zip
+ARG CADDY_DOWNLOAD_URL=https://github.com/caddyserver/caddy/releases/download/v1.0.4/caddy_v1.0.4_linux_amd64.tar.gz
 
 ENV DOMAIN=localhost
 ENV UUID=2074ccef-0492-4150-b140-70088e75ff96
@@ -18,6 +19,8 @@ RUN apk --no-cache add tzdata ca-certificates nginx unzip acme.sh supervisor \
     && ln -sf /usr/share/zoneinfo/${TZ} /etc/localtime \
     && echo ${TZ} > /etc/timezone \
     && rm -rf /tmp/*
+
+RUN wget -O - $CADDY_DOWNLOAD_URL | tar -xzvC /usr/local/bin caddy
 
 EXPOSE 443 80
 ENTRYPOINT ["/bin/sh", "/entrypoint.sh"]
